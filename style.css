@@ -1,0 +1,74 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: linear-gradient(to bottom, #adebad, #ffffff); /* verde suave a blanco */
+}
+
+#game {
+  position: relative;
+  width: 350px;
+  height: 350px;
+  margin: 20px auto;
+  border: 2px solid #333;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #f5f5f5, #d0f0d0); /* textura ligera */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  overflow: hidden;
+}
+
+#player {
+  position: absolute;
+  bottom: 0;
+  left: 50px;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(to top, #1a75ff, #4da6ff); /* azul degradado */
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  transition: bottom 0.1s;
+}
+
+#can {
+  position: absolute;
+  bottom: 0;
+  right: 50px;
+  width: 30px;
+  height: 30px;
+  background: linear-gradient(to top, #ff4d4d, #ff9999); /* rojo degradado */
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+#bag {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(to top, #ffcc66, #ffd699); /* amarillo tipo bolsa */
+  border-radius: 50% 50% 0 0;
+  transform-origin: bottom;
+  transition: transform 0.3s;
+}
+
+#bagCount, #message {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.controls button {
+  font-size: 18px;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(to bottom, #4da6ff, #1a75ff);
+  color: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.controls button:hover {
+  transform: scale(1.1);
+  transition: 0.2s;
+}
