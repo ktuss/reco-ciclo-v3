@@ -1,19 +1,64 @@
 const player = document.getElementById("player");
-let posX = 0; // posición horizontal
-let speed = 2; // velocidad de movimiento
+const can = document.querySelector(".can");
+const jumpBtn = document.getElementById("jumpBtn");
+const collectBtn = document.getElementById("collectBtn");
+const scoreText = document.getElementById("score");
+const message = document.getElementById("message");
 
-function movePlayer() {
-  posX += speed;
-  
-  // si llega al final de la pantalla, vuelve al inicio
-  if (posX > window.innerWidth) {
-    posX = -50; // ancho del jugador
+let jumping = false;
+let score = 0;
+let gameStarted = true;
+
+// SALTO
+jumpBtn.addEventListener("click", () => {
+  if (!jumping && gameStarted) {
+    jumping = true;
+    let pos = 0;
+
+    let up = setInterval(() => {
+      if (pos >= 100) {
+        clearInterval(up);
+        let down = setInterval(() => {
+          if (pos <= 0) {
+            clearInterval(down);
+            jumping = false;
+          } else {
+            pos -= 5;
+            player.style.bottom = pos + "px";
+          }
+        }, 20);
+      } else {
+        pos += 5;
+        player.style.bottom = pos + "px";
+      }
+    }, 20);
   }
-  
-  player.style.left = posX + "px";
-  
-  requestAnimationFrame(movePlayer);
-}
+});
 
-// iniciar animación
-movePlayer();
+// RECOGER LATA
+collectBtn.addEventListener("click", () => {
+  if (!gameStarted) return;
+
+  let playerRect = player.getBoundingClientRect();
+  let canRect = can.getBoundingClientRect();
+
+  if (
+    playerRect.right > canRect.left &&
+    playerRect.left < canRect.right
+  ) {
+    score++;
+    scoreText.innerText = "Latas: " + score;
+
+    // Mueve la lata a nueva posición
+    can.style.right = Math.random() * 300 + "px";
+
+    if (score >= 30) {
+      message.innerText = "¡Eres un buen reciclador!";
+      setTimeout(() => {
+        score = 0;
+        scoreText.innerText = "Latas: 0";
+        message.innerText = "";
+      }, 3000);
+    }
+  }
+});
