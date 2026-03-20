@@ -2,26 +2,33 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Reco-Ciclo: Side-Scroller</title>
+  <title>Reco-Ciclo</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
 <div id="game">
-  <!-- FONDO -->
+
+  <!-- Fondo -->
   <div id="background"></div>
 
-  <!-- PERSONAJE -->
-  <div id="player"></div>
-
-  <!-- Latas -->
-  <div id="cans-container"></div>
-
-  <!-- SCORE -->
+  <!-- Contador de latas -->
   <div id="score">Latas: 0</div>
 
-  <!-- MENSAJE -->
+  <!-- Personaje -->
+  <div id="player"></div>
+
+  <!-- Latas (se generan dinámicamente) -->
+  <div id="cansContainer"></div>
+
+  <!-- Mensaje de logro -->
   <div id="message"></div>
+
+</div>
+
+<!-- Controles -->
+<div class="controls">
+  <button id="jumpBtn">⬆️ Saltar</button>
+  <button id="collectBtn">🗑️ Recoger</button>
 </div>
 
 <script src="script.js"></script>
