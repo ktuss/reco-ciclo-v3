@@ -1,73 +1,78 @@
 body {
   margin: 0;
-  font-family: sans-serif;
   background: #111;
+  font-family: sans-serif;
 }
 
+/* ESCENA COMPLETA */
 #game {
-  position: relative;
   width: 100%;
   height: 80vh;
   overflow: hidden;
-  border-bottom: 12px solid green;
+  position: relative;
 }
 
+/* Fondo estilo Mario */
 #background {
-  position: absolute;
   width: 200%;
   height: 100%;
-  background: url('sprites/background.png') repeat-x;
-  background-size: cover;
-  animation: scroll 10s linear infinite;
+  background: linear-gradient(#6ec1e4, #5ab75c);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  transition: left 0.1s linear;
 }
 
-@keyframes scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
+/* SCORE */
 #score {
   position: absolute;
   top: 10px;
-  width: 100%;
-  text-align: center;
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 24px;
   color: white;
   z-index: 2;
 }
 
+/* PERSONAJE PIXEL */
 #player {
   width: 50px;
   height: 70px;
-  background: url('sprites/player.png') no-repeat 0 0;
-  background-size: cover;
   position: absolute;
   bottom: 0;
   left: 50px;
-  z-index: 2;
+  background-image: url('player-sprite.png');
+  background-size: cover;
+  z-index: 1;
 }
 
-.can {
+/* LATA */
+#can {
   width: 30px;
-  height: 30px;
-  background: url('sprites/can.png') no-repeat center center;
-  background-size: cover;
+  height: 40px;
   position: absolute;
   bottom: 0;
+  right: 0;
+  background-image: url('can.png');
+  background-size: cover;
+  z-index: 1;
 }
 
+/* MENSAJE FINAL */
 #message {
   position: absolute;
-  top: 40%;
   width: 100%;
+  top: 40%;
   text-align: center;
   font-size: 36px;
   color: yellow;
-  z-index: 3;
+  font-weight: bold;
   display: none;
+  z-index: 2;
 }
 
-/* Controles */
+/* BOTONES */
 .controls {
   display: flex;
   justify-content: space-around;
@@ -75,13 +80,13 @@ body {
 }
 
 button {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
+  width: 120px;
+  height: 60px;
+  border-radius: 12px;
   border: none;
-  font-size: 25px;
+  font-size: 20px;
   cursor: pointer;
 }
 
-#jumpBtn { background: dodgerblue; }
-#collectBtn { background: limegreen; }
+#collectBtn { background: limegreen; color: white; }
+#jumpBtn { background: dodgerblue; color: white; }
