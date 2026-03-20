@@ -1,8 +1,7 @@
 body {
   margin: 0;
   font-family: sans-serif;
-  overflow: hidden;
-  background: #87CEEB; /* cielo azul */
+  background: #111;
 }
 
 #game {
@@ -11,68 +10,78 @@ body {
   height: 80vh;
   overflow: hidden;
   border-bottom: 12px solid green;
-  background: linear-gradient(to top, #6ec1e4, #a0d8ff);
 }
 
-/* Fondo desplazable */
 #background {
   position: absolute;
-  width: 300%;
+  width: 200%;
   height: 100%;
-  background-image: url('https://i.imgur.com/Uh9X8v1.png'); /* Puedes cambiarlo por tu fondo */
-  background-repeat: repeat-x;
+  background: url('sprites/background.png') repeat-x;
   background-size: cover;
-  animation: moveBackground 5s linear infinite;
-  z-index: 1;
+  animation: scroll 10s linear infinite;
 }
 
-/* PERSONAJE */
-#player {
-  width: 40px;
-  height: 50px;
-  position: absolute;
-  bottom: 0;
-  left: 50px;
-  background: url('https://i.imgur.com/2QvOy5p.png') no-repeat center/cover;
-  z-index: 2;
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
-/* LATAS */
-.can {
-  width: 25px;
-  height: 25px;
-  position: absolute;
-  bottom: 0;
-  background: red;
-  border-radius: 5px;
-  z-index: 2;
-}
-
-/* SCORE */
 #score {
   position: absolute;
   top: 10px;
-  left: 10px;
+  width: 100%;
+  text-align: center;
+  font-size: 24px;
   color: white;
-  font-size: 20px;
-  font-weight: bold;
-  z-index: 3;
+  z-index: 2;
 }
 
-/* MENSAJE */
+#player {
+  width: 50px;
+  height: 70px;
+  background: url('sprites/player.png') no-repeat 0 0;
+  background-size: cover;
+  position: absolute;
+  bottom: 0;
+  left: 50px;
+  z-index: 2;
+}
+
+.can {
+  width: 30px;
+  height: 30px;
+  background: url('sprites/can.png') no-repeat center center;
+  background-size: cover;
+  position: absolute;
+  bottom: 0;
+}
+
 #message {
   position: absolute;
   top: 40%;
   width: 100%;
   text-align: center;
-  font-size: 30px;
+  font-size: 36px;
   color: yellow;
-  font-weight: bold;
   z-index: 3;
+  display: none;
 }
 
-/* ANIMACIÓN FONDO */
-@keyframes moveBackground {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-33%); }
+/* Controles */
+.controls {
+  display: flex;
+  justify-content: space-around;
+  padding: 15px;
 }
+
+button {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: none;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+#jumpBtn { background: dodgerblue; }
+#collectBtn { background: limegreen; }
