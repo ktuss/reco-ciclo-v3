@@ -2,28 +2,36 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Reco-Ciclo V5</title>
+  <title>Reco-Ciclo</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div id="game">
-  <!-- Título y Score -->
+
+  <!-- TÍTULO ARRIBA -->
   <div class="header">Reco-Ciclo</div>
-  <div id="score">Latas: 0</div>
+
+  <!-- MENSAJE / CONTEO -->
   <div id="message"></div>
 
-  <!-- Personaje -->
-  <div id="player"></div>
+  <!-- SCORE -->
+  <div id="score">Latas: 0</div>
 
-  <!-- Latas en el suelo -->
+  <!-- PERSONAJE CON BOLSA -->
+  <div id="player">
+    <div id="bag"></div>
+  </div>
+
+  <!-- LATA -->
   <div id="can"></div>
+
 </div>
 
-<!-- Controles -->
+<!-- BOTONES ABAJO -->
 <div class="controls">
-  <button id="collectBtn">🗑️ Recoger</button>
-  <button id="jumpBtn">⬆️ Saltar</button>
+  <button id="collectBtn">🗑️</button>
+  <button id="jumpBtn">⬆️</button>
 </div>
 
 <script src="script.js"></script>
