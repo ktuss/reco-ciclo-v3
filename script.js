@@ -2,28 +2,27 @@ const player = document.getElementById("player");
 const can = document.getElementById("can");
 const jumpBtn = document.getElementById("jumpBtn");
 const collectBtn = document.getElementById("collectBtn");
-const countdown = document.getElementById("countdown");
 const scoreText = document.getElementById("score");
+const message = document.getElementById("message");
 
 let jumping = false;
 let gameStarted = false;
 let score = 0;
 
-/* 🎬 CONTEO */
+/* Conteo inicial */
 function startCountdown() {
   let count = 3;
-  countdown.innerText = count;
+  message.innerText = count;
 
   let interval = setInterval(() => {
     count--;
-
     if (count > 0) {
-      countdown.innerText = count;
+      message.innerText = count;
     } else if (count === 0) {
-      countdown.innerText = "¡YA!";
+      message.innerText = "¡YA!";
     } else {
       clearInterval(interval);
-      countdown.innerText = "";
+      message.innerText = "";
       gameStarted = true;
     }
   }, 1000);
@@ -31,17 +30,14 @@ function startCountdown() {
 
 startCountdown();
 
-/* 🟦 SALTO */
+/* Salto */
 jumpBtn.addEventListener("click", () => {
   if (!jumping && gameStarted) {
     jumping = true;
-
     let pos = 0;
-
     let up = setInterval(() => {
       if (pos >= 120) {
         clearInterval(up);
-
         let down = setInterval(() => {
           if (pos <= 0) {
             clearInterval(down);
@@ -51,7 +47,6 @@ jumpBtn.addEventListener("click", () => {
             player.style.bottom = pos + "px";
           }
         }, 20);
-
       } else {
         pos += 6;
         player.style.bottom = pos + "px";
@@ -60,21 +55,25 @@ jumpBtn.addEventListener("click", () => {
   }
 });
 
-/* 🟥 RECOGER (instantáneo) */
+/* Recolectar lata/botella */
 collectBtn.addEventListener("click", () => {
   if (!gameStarted) return;
 
   let playerRect = player.getBoundingClientRect();
   let canRect = can.getBoundingClientRect();
 
-  if (
-    playerRect.right > canRect.left &&
-    playerRect.left < canRect.right
-  ) {
+  if (playerRect.right > canRect.left && playerRect.left < canRect.right) {
     score++;
     scoreText.innerText = "Latas: " + score;
 
-    // reaparece
+    // Reaparece la lata en otro lugar
     can.style.right = Math.random() * 300 + "px";
+
+    // Mensaje al recolectar 30 latas
+    if (score >= 30) {
+      message.innerText = "¡Eres un buen reciclador!";
+      score = 0; // reinicia contador
+      scoreText.innerText = "Latas: 0";
+    }
   }
 });
