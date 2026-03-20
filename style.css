@@ -1,74 +1,90 @@
 body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  background: linear-gradient(to bottom, #adebad, #ffffff); /* verde suave a blanco */
+  margin: 0;
+  background: #111;
+  font-family: sans-serif;
 }
 
+/* ESCENA COMPLETA */
 #game {
+  width: 100%;
+  height: 80vh;
+  background: #6ec1e4;
   position: relative;
-  width: 350px;
-  height: 350px;
-  margin: 20px auto;
-  border: 2px solid #333;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #f5f5f5, #d0f0d0); /* textura ligera */
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
   overflow: hidden;
+  border-bottom: 12px solid green;
 }
 
-#player {
+/* HEADER */
+.header {
   position: absolute;
-  bottom: 0;
-  left: 50px;
+  top: 0;
+  width: 100%;
+  background: #0b1a2a;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-size: 22px;
+}
+
+/* SCORE */
+#score {
+  position: absolute;
+  top: 50px;
+  width: 100%;
+  text-align: center;
+  color: white;
+}
+
+/* PERSONAJE PIXEL */
+#player {
   width: 40px;
   height: 40px;
-  background: linear-gradient(to top, #1a75ff, #4da6ff); /* azul degradado */
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
-  transition: bottom 0.1s;
+  background: yellow;
+  position: absolute;
+  bottom: 0;
+  left: 20px;
 }
 
+/* LATA */
 #can {
+  width: 25px;
+  height: 25px;
+  background: red;
   position: absolute;
   bottom: 0;
-  right: 50px;
-  width: 30px;
-  height: 30px;
-  background: linear-gradient(to top, #ff4d4d, #ff9999); /* rojo degradado */
-  border-radius: 50%;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  right: 60px;
 }
 
-#bag {
+/* CONTADOR */
+#countdown {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 50px;
-  height: 50px;
-  background: linear-gradient(to top, #ffcc66, #ffd699); /* amarillo tipo bolsa */
-  border-radius: 50% 50% 0 0;
-  transform-origin: bottom;
-  transition: transform 0.3s;
-}
-
-#bagCount, #message {
-  margin-top: 10px;
-  font-weight: bold;
-}
-
-.controls button {
-  font-size: 18px;
-  padding: 10px 20px;
-  margin: 5px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  background: linear-gradient(to bottom, #4da6ff, #1a75ff);
+  width: 100%;
+  top: 40%;
+  text-align: center;
+  font-size: 60px;
   color: white;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
 
-.controls button:hover {
-  transform: scale(1.1);
-  transition: 0.2s;
+/* BOTONES */
+.controls {
+  display: flex;
+  justify-content: space-around;
+  padding: 15px;
+}
+
+button {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: none;
+  font-size: 25px;
+}
+
+/* MÁS LLAMATIVO */
+#collectBtn {
+  background: limegreen;
+}
+
+#jumpBtn {
+  background: dodgerblue;
 }
