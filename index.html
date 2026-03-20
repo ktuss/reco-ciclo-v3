@@ -1,25 +1,36 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Reco-Ciclo v3</title>
+  <title>Reco-Ciclo</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1 class="title">Reco-Ciclo v3</h1>
-
 <div id="game">
+
+  <!-- TÍTULO ARRIBA -->
+  <div class="header">Reco-Ciclo</div>
+
+  <!-- CONTADOR -->
+  <div id="countdown"></div>
+
+  <!-- SCORE -->
+  <div id="score">Latas: 0</div>
+
+  <!-- PERSONAJE -->
   <div id="player"></div>
+
+  <!-- LATA -->
   <div id="can"></div>
-  <div id="bag"></div> <!-- Bolsa visual que crece -->
-  <div id="bagCount">Latas en bolso: 0</div>
-  <div id="message"></div>
+
 </div>
 
+<!-- BOTONES ABAJO -->
 <div class="controls">
-  <button id="collectBtn">🗑️ Recoger</button>
-  <button id="jumpBtn">⬆️ Saltar</button>
+  <button id="collectBtn">🗑️</button>
+  <button id="jumpBtn">⬆️</button>
 </div>
 
 <script src="script.js"></script>
