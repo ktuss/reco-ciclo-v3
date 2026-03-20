@@ -1,63 +1,84 @@
-const player = document.getElementById('player');
-const cansContainer = document.getElementById('cans-container');
-const scoreText = document.getElementById('score');
-const message = document.getElementById('message');
+const player = document.getElementById("player");
+const jumpBtn = document.getElementById("jumpBtn");
+const collectBtn = document.getElementById("collectBtn");
+const scoreText = document.getElementById("score");
+const message = document.getElementById("message");
+const cansContainer = document.getElementById("cansContainer");
 
+let jumping = false;
 let score = 0;
+const maxScore = 30;
 let cans = [];
-let gameSpeed = 2; // velocidad de las latas hacia el jugador
 
-// Crear lata
-function createCan() {
-  const can = document.createElement('div');
-  can.classList.add('can');
-  can.style.right = '0px';
-  can.style.bottom = '0px';
+// Crear latas dinámicamente
+function spawnCan() {
+  const can = document.createElement("div");
+  can.classList.add("can");
+  can.style.left = Math.random() * 80 + 20 + "%";
   cansContainer.appendChild(can);
   cans.push(can);
 }
 
-// Mover latas
-function moveCans() {
-  cans.forEach((can, index) => {
-    let right = parseInt(can.style.right);
-    right += gameSpeed;
-    can.style.right = right + 'px';
+// Animación salto
+jumpBtn.addEventListener("click", () => {
+  if (jumping) return;
+  jumping = true;
+  let pos = 0;
+  const up = setInterval(() => {
+    if (pos >= 120) {
+      clearInterval(up);
+      const down = setInterval(() => {
+        if (pos <= 0) {
+          clearInterval(down);
+          jumping = false;
+        } else {
+          pos -= 6;
+          player.style.bottom = pos + "px";
+        }
+      }, 20);
+    } else {
+      pos += 6;
+      player.style.bottom = pos + "px";
+    }
+  }, 20);
+});
 
-    // colisión simple
+// Recoger lata
+collectBtn.addEventListener("click", () => {
+  cans.forEach((can, index) => {
     const playerRect = player.getBoundingClientRect();
     const canRect = can.getBoundingClientRect();
+
     if (
       playerRect.right > canRect.left &&
-      playerRect.left < canRect.right
+      playerRect.left < canRect.right &&
+      playerRect.bottom > canRect.top
     ) {
+      // Incrementar score
       score++;
-      scoreText.innerText = `Latas: ${score}`;
+      scoreText.innerText = "Latas: " + score;
+
+      // Remover lata
       can.remove();
       cans.splice(index, 1);
 
-      if (score >= 30) {
+      // Spawnear otra lata
+      setTimeout(spawnCan, 500);
+
+      // Logro
+      if (score >= maxScore) {
         message.innerText = "¡Eres un buen reciclador!";
-        score = 0;
-        setTimeout(() => { message.innerText = ''; }, 2000);
+        message.style.display = "block";
+
+        setTimeout(() => {
+          score = 0;
+          scoreText.innerText = "Latas: 0";
+          message.style.display = "none";
+        }, 3000);
       }
     }
-
-    // si sale de pantalla
-    if (right > window.innerWidth) {
-      can.remove();
-      cans.splice(index, 1);
-    }
   });
-}
+});
 
-// Loop principal
-function gameLoop() {
-  moveCans();
-  requestAnimationFrame(gameLoop);
-}
-
-// Generar latas aleatorias cada 2-3 segundos
-setInterval(createCan, 2000 + Math.random() * 1000);
-
-gameLoop();
+// Inicializar latas
+for (let i = 0; i < 5; i++) spawnCan();
