@@ -4,12 +4,13 @@ const jumpBtn = document.getElementById("jumpBtn");
 const collectBtn = document.getElementById("collectBtn");
 const scoreText = document.getElementById("score");
 const message = document.getElementById("message");
+const bag = document.getElementById("bag");
 
 let jumping = false;
 let gameStarted = false;
 let score = 0;
 
-/* Conteo inicial */
+/* 🎬 Conteo inicial */
 function startCountdown() {
   let count = 3;
   message.innerText = count;
@@ -30,11 +31,12 @@ function startCountdown() {
 
 startCountdown();
 
-/* Salto */
+/* 🟦 SALTO */
 jumpBtn.addEventListener("click", () => {
   if (!jumping && gameStarted) {
     jumping = true;
     let pos = 0;
+
     let up = setInterval(() => {
       if (pos >= 120) {
         clearInterval(up);
@@ -55,7 +57,7 @@ jumpBtn.addEventListener("click", () => {
   }
 });
 
-/* Recolectar lata/botella */
+/* 🟥 RECOGER LATA / CRECIMIENTO BOLSA */
 collectBtn.addEventListener("click", () => {
   if (!gameStarted) return;
 
@@ -66,14 +68,26 @@ collectBtn.addEventListener("click", () => {
     score++;
     scoreText.innerText = "Latas: " + score;
 
-    // Reaparece la lata en otro lugar
+    // Reaparece la lata
     can.style.right = Math.random() * 300 + "px";
+
+    // Crece la bolsa gradualmente
+    let bagSize = 10 + score * 1.5;
+    bag.style.width = bagSize + "px";
+    bag.style.height = bagSize + "px";
 
     // Mensaje al recolectar 30 latas
     if (score >= 30) {
       message.innerText = "¡Eres un buen reciclador!";
-      score = 0; // reinicia contador
+      score = 0;
       scoreText.innerText = "Latas: 0";
+      bag.style.width = "10px";
+      bag.style.height = "10px";
+
+      // reinicio automático
+      setTimeout(() => {
+        message.innerText = "";
+      }, 2000);
     }
   }
 });
