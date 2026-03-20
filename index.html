@@ -2,16 +2,33 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Camina-Persona</title>
+  <title>Reco-Ciclo Avanzado</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div id="game">
+  <!-- PERSONAJE -->
+  <div id="player">
+    <div class="head"></div>
+    <div class="body"></div>
+    <div class="legs"></div>
+  </div>
 
-  <!-- Personaje -->
-  <div id="player"></div>
+  <!-- LATA -->
+  <div class="can"></div>
 
+  <!-- SCORE -->
+  <div id="score">Latas: 0</div>
+
+  <!-- MENSAJE -->
+  <div id="message"></div>
+</div>
+
+<!-- CONTROLES -->
+<div class="controls">
+  <button id="collectBtn">🗑️ Recoger</button>
+  <button id="jumpBtn">⬆️ Saltar</button>
 </div>
 
 <script src="script.js"></script>
