@@ -1,84 +1,69 @@
 const player = document.getElementById("player");
+const can = document.getElementById("can");
 const jumpBtn = document.getElementById("jumpBtn");
 const collectBtn = document.getElementById("collectBtn");
 const scoreText = document.getElementById("score");
 const message = document.getElementById("message");
-const cansContainer = document.getElementById("cansContainer");
+const background = document.getElementById("background");
 
 let jumping = false;
+let gameStarted = true;
 let score = 0;
-const maxScore = 30;
-let cans = [];
 
-// Crear latas dinámicamente
-function spawnCan() {
-  const can = document.createElement("div");
-  can.classList.add("can");
-  can.style.left = Math.random() * 80 + 20 + "%";
-  cansContainer.appendChild(can);
-  cans.push(can);
-}
-
-// Animación salto
+/* 🟦 SALTO */
 jumpBtn.addEventListener("click", () => {
-  if (jumping) return;
-  jumping = true;
-  let pos = 0;
-  const up = setInterval(() => {
-    if (pos >= 120) {
-      clearInterval(up);
-      const down = setInterval(() => {
-        if (pos <= 0) {
-          clearInterval(down);
-          jumping = false;
-        } else {
-          pos -= 6;
-          player.style.bottom = pos + "px";
-        }
-      }, 20);
-    } else {
-      pos += 6;
-      player.style.bottom = pos + "px";
-    }
-  }, 20);
-});
-
-// Recoger lata
-collectBtn.addEventListener("click", () => {
-  cans.forEach((can, index) => {
-    const playerRect = player.getBoundingClientRect();
-    const canRect = can.getBoundingClientRect();
-
-    if (
-      playerRect.right > canRect.left &&
-      playerRect.left < canRect.right &&
-      playerRect.bottom > canRect.top
-    ) {
-      // Incrementar score
-      score++;
-      scoreText.innerText = "Latas: " + score;
-
-      // Remover lata
-      can.remove();
-      cans.splice(index, 1);
-
-      // Spawnear otra lata
-      setTimeout(spawnCan, 500);
-
-      // Logro
-      if (score >= maxScore) {
-        message.innerText = "¡Eres un buen reciclador!";
-        message.style.display = "block";
-
-        setTimeout(() => {
-          score = 0;
-          scoreText.innerText = "Latas: 0";
-          message.style.display = "none";
-        }, 3000);
+  if (!jumping) {
+    jumping = true;
+    let pos = 0;
+    let up = setInterval(() => {
+      if (pos >= 120) {
+        clearInterval(up);
+        let down = setInterval(() => {
+          if (pos <= 0) {
+            clearInterval(down);
+            jumping = false;
+          } else {
+            pos -= 6;
+            player.style.bottom = pos + "px";
+          }
+        }, 20);
+      } else {
+        pos += 6;
+        player.style.bottom = pos + "px";
       }
-    }
-  });
+    }, 20);
+  }
 });
 
-// Inicializar latas
-for (let i = 0; i < 5; i++) spawnCan();
+/* 🟥 RECOGER LATA */
+collectBtn.addEventListener("click", () => {
+  if (!gameStarted) return;
+
+  let playerRect = player.getBoundingClientRect();
+  let canRect = can.getBoundingClientRect();
+
+  if (playerRect.right > canRect.left &&
+      playerRect.left < canRect.right) {
+    score++;
+    scoreText.innerText = "Latas: " + score;
+
+    // mover lata aleatoriamente
+    can.style.right = Math.random() * 500 + "px";
+
+    // mover fondo como si avanzara
+    let bgLeft = parseInt(background.style.left || 0);
+    background.style.left = (bgLeft - 20) + "px";
+
+    // mensaje final a los 30
+    if (score >= 30) {
+      message.style.display = "block";
+      message.innerText = "¡Eres un buen reciclador!";
+      setTimeout(() => {
+        score = 0;
+        scoreText.innerText = "Latas: 0";
+        message.style.display = "none";
+        background.style.left = "0px";
+      }, 3000);
+    }
+  }
+});
